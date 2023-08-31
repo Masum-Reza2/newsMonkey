@@ -56,6 +56,7 @@ let catNewses = async (id) => {
 
     if (partNews.length > 0) {
         partNews.forEach(news => {
+            // console.log(news._id)
             
             let div = document.createElement('div');
             div.classList = 'card bg-base-100 shadow-xl font-semibold'
@@ -82,7 +83,7 @@ let catNewses = async (id) => {
     
                     </div>
     
-                    <button class="btn shadow-md shadow-gray-300">Details</button>
+                    <button onclick = "modalHandler('${news._id}')" class="btn shadow-md shadow-gray-300">Details</button>
     
                 </div>
             `
@@ -101,6 +102,19 @@ let catNewses = async (id) => {
 catNewses('08')
 
 // modalHandler
-function modalHandler (){
-    console.log(event.target.parentNode.innerText)
+async function  modalHandler (id){
+    let res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
+    let data = await res.json();
+    let details = data?.data[0].details;
+    // console.log(data?.data[0])
+
+    let modalItem = document.getElementById('modalItem');
+    modalItem.innerHTML = '';
+    let div = document.createElement('div');
+    div.innerHTML = `
+    <img src="${data?.data[0].image_url}" alt="">
+    <p>${details}</p>
+    `
+    modalItem.appendChild(div)
+    modalShow.showModal()
 }
