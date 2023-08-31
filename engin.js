@@ -5,6 +5,7 @@ let allNewsCat = async () => {
     let allCat = data.data.news_category
 
     showAllCat(allCat)
+    console.log(allCat)
 }
 
 allNewsCat()
@@ -13,7 +14,7 @@ allNewsCat()
 let showAllCat = (allCat) => {
     let newsCategories = document.getElementById('newsCategories');
 
-
+    
     allCat.forEach(category => {
         // console.log(category)
         let p = document.createElement('p');
@@ -74,3 +75,6 @@ let catNewses = async (id) => {
     });
 
 }
+
+// by default showing all news
+catNewses('08')
