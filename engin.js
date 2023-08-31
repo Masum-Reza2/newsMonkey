@@ -5,10 +5,23 @@ let allNewsCat = async () => {
     let allCat = data.data.news_category
 
     showAllCat(allCat)
-    console.log(allCat)
+    // console.log(allCat)
 }
 
 allNewsCat()
+
+
+// loading handler
+let loadingHandler = (isLoading) => {
+    let loadingSpinner = document.getElementById('loadingSpinner');
+    if(isLoading){
+        loadingSpinner.classList.remove('hidden')
+    }
+    else{
+        loadingSpinner.classList.add('hidden')
+    }
+}
+
 
 //showd all catgories of news in the display
 let showAllCat = (allCat) => {
@@ -23,6 +36,7 @@ let showAllCat = (allCat) => {
         newsCategories.appendChild(p);
 
         p.addEventListener('click', () => {
+            loadingHandler(true)
             catNewses(category.category_id)
         })
     });
@@ -73,6 +87,8 @@ let catNewses = async (id) => {
         `
         categoryNews.appendChild(div)
     });
+
+    loadingHandler(false)
 
 }
 
